@@ -47,4 +47,13 @@ object UrlParamFilter {
       case _: NumberFormatException => false
     }
   }
+  case class ParamExistsPredicate(param: String) extends Predicate {
+    override def pred(v: String) = true
+  }
+  case class PositiveFlagPredicate(param: String) extends Predicate {
+    override def pred(v: String): Boolean = v.toLowerCase match {
+      case "true" | "yes" | "1" => true
+      case _ => false
+    }
+  }
 }

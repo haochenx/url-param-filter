@@ -72,7 +72,12 @@ object UrlParamFilterParser {
     )
     val strPred: P[Predicate] = P(param ~ strPredOp ~ quotedString("\"")).map { case (p, op, v) => StrPredicate(p, op(v)) }
 
-    val pred: P[Predicate] = P(intPred | strPred)
+    val typePred: P[Predicate] = P(
+      (param ~ "^exists").map(ParamExistsPredicate) |
+        (param ~ "^positive").map(PositiveFlagPredicate) |
+        (param ~ "^int").map(IntPredicate(_, _=> true)))
+
+    val pred: P[Predicate] = P(typePred | intPred | strPred)
 
     lazy val filter: P[Filter] = filterDisj
     val filterTrivial: P[Filter] = P("@true".just(TrueFilter) | "@false".just(FalseFilter))

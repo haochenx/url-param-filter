@@ -103,6 +103,33 @@ class UrlParamFilterParserTest extends FunSuite {
       assert(!f.test(Map("param1"->"halo123")))
       assert(!f.test(Map("param1"->"ho")))
     }
+
+    {
+      val Some(f) = parse(""" param1 ^int """)
+      assert(f.test(Map("param1"->"10")))
+      assert(f.test(Map("param1"->"20")))
+      assert(!f.test(Map()))
+      assert(!f.test(Map("param1"->"halo123")))
+      assert(!f.test(Map("param1"->"ho")))
+    }
+    {
+      val Some(f) = parse(""" param1 ^exists """)
+      assert(f.test(Map("param1"->"10")))
+      assert(f.test(Map("param1"->"halo123")))
+      assert(!f.test(Map()))
+      assert(!f.test(Map("param2"->"ho")))
+    }
+    {
+      val Some(f) = parse(""" param1 ^positive """)
+      assert(f.test(Map("param1"->"true")))
+      assert(f.test(Map("param1"->"yes")))
+      assert(f.test(Map("param1"->"1")))
+      assert(!f.test(Map()))
+      assert(!f.test(Map("param2"->"no")))
+      assert(!f.test(Map("param2"->"0")))
+      assert(!f.test(Map("param2"->"meow")))
+    }
+
   }
 
 }
