@@ -65,9 +65,9 @@ class UrlParamFilterParserTest extends FunSuite {
       assert(!f.test(Map("param1"->"ho")))
     }
     {
-      parse(""" param1 < 10 """)
-      parse(""" param1 >= 10 """)
-      parse(""" param1 <= 10 """)
+      val Some(_) = parse(""" param1 < 10 """)
+      val Some(_) = parse(""" param1 >= 10 """)
+      val Some(_) = parse(""" param1 <= 10 """)
     }
 
     {
