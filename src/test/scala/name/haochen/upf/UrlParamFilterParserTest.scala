@@ -120,7 +120,7 @@ class UrlParamFilterParserTest extends FunSuite {
       assert(!f.test(Map("param2"->"ho")))
     }
     {
-      val Some(f) = parse(""" param1 ^positive """)
+      val Some(f) = parse(""" param1 ^yes """)
       assert(f.test(Map("param1"->"true")))
       assert(f.test(Map("param1"->"yes")))
       assert(f.test(Map("param1"->"1")))

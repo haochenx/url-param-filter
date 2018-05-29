@@ -74,7 +74,7 @@ object UrlParamFilterParser {
 
     val typePred: P[Predicate] = P(
       (param ~ "^exists").map(ParamExistsPredicate) |
-        (param ~ "^positive").map(PositiveFlagPredicate) |
+        (param ~ "^yes").map(PositiveFlagPredicate) |
         (param ~ "^int").map(IntPredicate(_, _=> true)))
 
     val pred: P[Predicate] = P(typePred | intPred | strPred)
